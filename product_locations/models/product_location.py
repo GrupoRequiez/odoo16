@@ -27,7 +27,7 @@ class ProductLocationDetail(models.Model):
     internal_location_id = fields.Many2one('product.location', 'Location name', required=True)
     product_id = fields.Many2one('product.product', 'Product', required=True)
     location_id = fields.Many2one('stock.location', 'Location', required=True, default=562)
-    lot_id = fields.Many2one('stock.production.lot', 'Lot')
+    lot_id = fields.Many2one('stock.production.lot', 'Lot', domain="[('product_id', '=', product_id)]")
     product_qty = fields.Float('Quantity', required=True)
     tracking_type = fields.Selection('Tracking', related='product_id.tracking')
     comments = fields.Text('Comments')
