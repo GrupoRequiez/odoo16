@@ -58,10 +58,7 @@
                     <field name="internal_location_id" attrs="{'readonly': [('state', '=', 'cancel')]}"/>
                     <field name="product_id" attrs="{'readonly': [('state', 'in', ['done','cancel'])]}"/>
                     <field name="location_id" attrs="{'readonly': [('state', 'in', ['done','cancel'])]}"/>
-                    <field name="lot_id"
-                      domain="[('product_id', '=', product_id)]"
-                      attrs="{'readonly': [('state', 'in', ['done','cancel'])], 'invisible': [('tracking_type','!=','lot')], 'required': [('tracking_type','=','lot')]}"
-                      />
+                    <field name="lot_id" attrs="{'readonly': [('state', 'in', ['done','cancel'])], 'invisible': [('tracking_type','!=','lot')], 'required': [('tracking_type','=','lot')]}"/> <!-- domain="[('product_id', '=', product_id)]" -->
                     <field name="product_qty" attrs="{'readonly': [('state', 'in', ['done','cancel'])]}"/>
                     <field name="comments"/>
                   </group>
