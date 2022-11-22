@@ -46,6 +46,7 @@
         <field name="arch" type="xml">
             <form string="Product locations">
               <header>
+                  
                 <button name="action_validate" type="object" string="Validate" attrs="{'invisible': [('state', 'in', ['done','cancel'])]}"/>
                 <button name="action_cancel" type="object" string="Cancel" attrs="{'invisible': [('state', '!=', 'done')]}"/>
                 <button name="action_draft" type="object" string="Change to draft" attrs="{'invisible': [('state', 'in', ['done','draft'])]}"/>

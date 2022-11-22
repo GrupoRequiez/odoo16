@@ -9,9 +9,7 @@
           <div class="row mt32 mb32">
             <table class="table table-condensed">
               <tr>
-
                 <td style="border:solid 1px;" colspan="10" width="500">
-
                   <h1 style="text-align:center; font-size:60px;">PRODUCT</h1>
                   <h1 style="text-align:center; font-size:60px;" t-if="o.product_conform">
                     <strong>CONFORM</strong>
@@ -19,7 +17,6 @@
                   <h1 style="text-align:center; font-size:60px;" t-else="">
                     <strong>NO CONFORM</strong>
                   </h1>
-
                 </td>
               </tr>
 
@@ -117,10 +114,10 @@
               </tr>
               <tr>
                 <td style="text-align:center;" colspan="5" width="250">
-                  <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', o.product_name, 600, 100)" style="width:300px;height:50px"/>
+                  <img t-att-src="'/report/barcode/?barcode_type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', o.product_name, 600, 100)" style="width:300px;height:50px"/>
                 </td>
                 <td style="text-align:center;" colspan="5" width="250">
-                  <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', o.lot_id.id, 600, 100)" style="width:300px;height:50px"/>
+                  <img t-att-src="'/report/barcode/?barcode_type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', o.lot_id.id or docs.lot, 600, 100)" style="width:300px;height:50px"/>
                 </td>
               </tr>
             </table>
