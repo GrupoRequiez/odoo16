@@ -8,6 +8,7 @@
         <field name="report_name">incoming_products_kardex.incoming_products_kardex_report_template</field>
         <field name="report_file">incoming_products_kardex.incoming_products_kardex_report_template</field>
         <field name="print_report_name">'KARDEX'</field>
+        <field name="paperformat_id" ref="incoming_products_kardex.incoming_products_kardex_paperformat" />
         <field name="binding_model_id" ref="model_incoming_products_kardex"/>
         <field name="binding_type">report</field>
     </record>

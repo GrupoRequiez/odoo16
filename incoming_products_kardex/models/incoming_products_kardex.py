@@ -10,7 +10,7 @@ _logger = logging.getLogger(__name__)
 
 class IncomingProductsKardex(models.TransientModel):
     _name = 'incoming.products.kardex'
-    _description = "Modulo para crear Kardex de ingreso de material al almacen"
+    _description = "Module to create kardex for the entry of material to the warehouse"
 
     picking_id = fields.Many2one(
         'stock.picking',
@@ -44,11 +44,11 @@ class IncomingProductsKardex(models.TransientModel):
             msj = ''
             for lines in self.stock_kardex_line_ids:
                 if lines.qty_by_palette == 0:
-                    msj = 'No se ha ingresado la cantidad por tarima para el código %s.' % lines.product_name
-                    raise exceptions.Warning(msj)
+                    msj = 'Quantity per pallet has not been entered for code %s.' % lines.product_name
+                    raise exceptions.UserError(msj)
                 if lines.ordered_qty < lines.qty_by_palette:
-                    msj = 'La cantidad por tarima no debe ser mayor a la pedida. Producto %s' % lines.product_name
-                    raise exceptions.Warning(msj)
+                    msj = 'The amount per pallet should not be greater than the amount requested. Product %s' % lines.product_name
+                    raise exceptions.UserError(msj)
 
             stock_kardex_obj = self.env['stock.kardex.line']
             for line in self.stock_kardex_line_ids:
@@ -115,5 +115,5 @@ class StockKardexLine(models.TransientModel):
     product_name = fields.Char('Product', readonly=True)
     ordered_qty = fields.Float('Ordered qty', readonly=False)
     qty_by_palette = fields.Float('Qty by palette')
-    product_conform = fields.Boolean('Comform')
-    lot_id = fields.Many2one('stock.production.lot', 'Lot')
+    product_conform = fields.Boolean('Conform')
+    lot_id = fields.Many2one('stock.lot', 'Lot')
