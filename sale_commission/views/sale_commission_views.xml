@@ -8,13 +8,14 @@
             <form string="Commission">
                 <group>
                     <group>
+                        <field name="currency_id" invisible="1"/>
                         <field name="user_id" required="1"/>
                         <field name="date_start" t-options="{'format': 'dd/MM/yyyy'}"/>
                         <field name="date_end" t-options="{'format': 'dd/MM/yyyy'}"/>
                     </group>
                     <group>
-                        <field name="commission_tax" widget="monetary" options="{'currency_field': 'currency_id'}"/>
-                        <field name="commission" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                        <field name="commission_tax" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                        <field name="commission" widget='monetary' options="{'currency_field': 'currency_id'}"/>
                     </group>
                 </group>
                 <field name="sale_commission_detail_ids" nolabel="1" readonly="1">
@@ -24,7 +25,7 @@
                         <field name="currency_id" invisible="1"/>
                         <field name="account_invoice_date" t-options="{'widget': 'date', 'format': 'dd/MM/yyyy'}"/>
                         <field name="account_payment_date" t-options="{'widget': 'date'}"/>
-                        <field name="account_payment_amount" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                        <field name="account_payment_amount" widget="monetary"/>
                         <field name="day_difference"/>
                         <field name="day_int"/>
                         <field name="penalization"/>
@@ -44,11 +45,12 @@
     </record>
 
     <record id="sale_commission_action" model="ir.actions.act_window">
-      <field name="name">Commission Calculation</field>
-      <field name="type">ir.actions.act_window</field>
-      <field name="res_model">sale.commission</field>
-      <field name="view_mode">form</field>
-      <field name="view_id" ref="sale_commission.sale_commission_form"/>
+        <field name="name">Commission Calculation</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sale.commission</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="view_id" ref="sale_commission_form"/>
     </record>
 
     <menuitem id="menu_sale_commission" parent="sale.menu_sale_report" action="sale_commission_action" sequence="50"/>
@@ -65,6 +67,7 @@
                         <field name="account_invoice_date" readonly="1"/>
                     </group>
                     <group>
+                        <field name="currency_id" invisible="1"/>
                         <field name="account_payment_date" readonly="1"/>
                         <field name="account_payment_amount" readonly="1" options="{'currency_field': 'currency_id'}"/>
                     </group>

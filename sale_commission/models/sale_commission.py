@@ -113,6 +113,13 @@ class SaleCommission(models.TransientModel):
                                   readonly=True)
     commission = fields.Float(compute='_compute_commission',
                               readonly=True)
+    currency_id = fields.Many2one('res.currency', string='Currency',
+                                  compute='compute_currency_id',
+                                  readonly=True)
+
+    def compute_currency_id(self):
+        for record in self:
+            record.currency_id = self.env.company.currency_id
 
     # @api.multi
     def print_commission(self):
@@ -136,8 +143,9 @@ class SaleCommissionDetail(models.TransientModel):
     # @api.multi
     def compute_currency_id(self):
         for record in self:
-            record.currency_id = self.env.user.company_id.currency_id
-        raise exceptions.UserError(record.currency_id)
+            record.currency_id = self.env.company.currency_id
+
+
 
     sale_commission_id = fields.Many2one('sale.commission', 'Commission')
     account_invoice_id = fields.Many2one('account.move', 'Invoice',
@@ -155,16 +163,16 @@ class SaleCommissionDetail(models.TransientModel):
                                          readonly=True)
     account_payment_date = fields.Date(string='Payment date', readonly=True)
     account_payment_amount = fields.Monetary(string='Amount',
-                                             #currency_field="currency_id",
+                                             currency_field="currency_id",
                                              readonly=True)
     day_difference = fields.Integer('Days of difference')
     day_int = fields.Integer('Days of interest')
     penalization = fields.Monetary('Penalty amount',
-                                   #currency_field="currency_id"
+                                   currency_field="currency_id"
                                    )
     before_penalization = fields.Monetary('Amount before penalty',
-                                          #currency_field="currency_id"
+                                          currency_field="currency_id"
                                           )
-    commission = fields.Monetary()# currency_field="currency_id"
+    commission = fields.Monetary(currency_field="currency_id")
     commission_brand = fields.Float(digits=(2, 4))
     brand_id = fields.Many2one('product.brand', string='Brand')
